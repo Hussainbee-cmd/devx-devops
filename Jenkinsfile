@@ -4,7 +4,7 @@ pipeline {
         stage('Build') {
             steps {
                 script {
-                    docker.build('hussainbeecmd/devx-devops')
+                    docker.build('hussainbeecmd/devx-devops-pipeline')
                 }
             }
         }
@@ -12,7 +12,7 @@ pipeline {
             steps {
                 script {
                     docker.withRegistry('https://index.docker.io/v1/', 'dockerhub-credentials') {
-                        docker.image('hussainbeecmd/devx-devops').push('latest')
+                        docker.image('hussainbeecmd/devx-devops-pipeline').push('latest')
                     }
                 }
             }
