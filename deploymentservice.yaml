@@ -1,34 +1,32 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: spring-boot-k8s
+  name: nginx-deployment
 spec:
   replicas: 2
   selector:
     matchLabels:
-      app: spring-boot-k8s
+      app: nginx
   template:
     metadata:
       labels:
-        app: spring-boot-k8s
+        app: nginx
     spec:
       containers:
-        - name: spring-boot-k8s
-          image: hussainbeecmd/devx-devops-pipeline
-          imagePullPolicy: IfNotPresent
+        - name: nginx
+          image: nginx:latest
           ports:
-            - containerPort: 8080
-
-
+            - containerPort: 80
+---
 apiVersion: v1
 kind: Service
 metadata:
-  name: springboot-k8s-svc
+  name: nginx-service
 spec:
   selector:
-    app: spring-boot-k8s
+    app: nginx
   ports:
     - protocol: TCP
-      port: 8080       # Port exposed by the Service
-      targetPort: 8080 # Port on the container
+      port: 80       # Port exposed by the Service
+      targetPort: 80 # Port on the container
   type: NodePort
